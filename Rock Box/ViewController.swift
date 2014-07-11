@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         addBox(CGRectMake(100, 100, 30, 30))
+        createAnimatorStuff()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +31,18 @@ class ViewController: UIViewController {
         view.insertSubview(newBox, atIndex: 0)
         box = newBox
     }
+
+    var animator:UIDynamicAnimator? = nil;
+    let gravity = UIGravityBehavior()
+
+    func createAnimatorStuff() {
+        animator = UIDynamicAnimator(referenceView:self.view);
+
+        gravity.gravityDirection = CGVectorMake(0, 0.8)
+        gravity.addItem(box);
+        animator?.addBehavior(gravity);
+    }
+
 
 }
 
