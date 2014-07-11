@@ -35,12 +35,19 @@ class ViewController: UIViewController {
     var animator:UIDynamicAnimator? = nil;
     let gravity = UIGravityBehavior()
 
+    let collider = UICollisionBehavior()
+
     func createAnimatorStuff() {
         animator = UIDynamicAnimator(referenceView:self.view);
 
         gravity.gravityDirection = CGVectorMake(0, 0.8)
         gravity.addItem(box);
         animator?.addBehavior(gravity);
+
+        collider.addItem(box)
+        // We're bouncin' off the walls
+        collider.translatesReferenceBoundsIntoBoundary = true
+        animator?.addBehavior(collider)
     }
 
 
