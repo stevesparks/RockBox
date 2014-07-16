@@ -96,8 +96,8 @@ class ViewController: UIViewController {
 
     var animator:UIDynamicAnimator? = nil;
     let gravity = UIGravityBehavior()
-
     let collider = UICollisionBehavior()
+    let itemBehavior = UIDynamicItemBehavior()
 
     func createAnimatorStuff() {
         animator = UIDynamicAnimator(referenceView:self.view);
@@ -108,11 +108,16 @@ class ViewController: UIViewController {
         // We're bouncin' off the walls
         collider.translatesReferenceBoundsIntoBoundary = true
         animator?.addBehavior(collider)
+
+        itemBehavior.friction = 0.1;
+        itemBehavior.elasticity = 0.9
+        animator?.addBehavior(itemBehavior)
     }
 
     func addBoxToBehaviors(box: UIView) {
         gravity.addItem(box)
         collider.addItem(box)
+        itemBehavior.addItem(box)
     }
 
     //----------------- Core Motion
