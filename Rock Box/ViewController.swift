@@ -91,8 +91,30 @@ class ViewController: UIViewController {
             var frame = randomFrame()
             var color = randomColor()
             var newBox = addBox(frame, color: color);
+            chainBoxes(newBox)
         }
     }
+
+    let startPoint = CGPointMake(50, 50)
+    var prevBox = UIView()
+
+    func chainBoxes(box: UIView) {
+        if(prevBox.frame.origin.x == 0) {
+            let attach = UIAttachmentBehavior(item:box, attachedToAnchor:startPoint)
+            attach.length = 61
+            attach.damping = 0.5
+            animator?.addBehavior(attach)
+            prevBox = box
+        } else {
+            let attach = UIAttachmentBehavior(item:box, attachedToItem:prevBox)
+            attach.length = 61
+            attach.damping = 0.5
+            animator?.addBehavior(attach)
+            prevBox = box
+        }
+    }
+
+    //----------------- UIDynamicAllocator
 
     var animator:UIDynamicAnimator? = nil;
     let gravity = UIGravityBehavior()
